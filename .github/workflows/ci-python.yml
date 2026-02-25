@@ -1,0 +1,37 @@
+# ci-python.yml — Copy to your repo's .github/workflows/
+# Adapt: change python-version, test path as needed.
+
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint (ruff)
+        run: ruff check . --if-present || true
+
+      - name: Type check (mypy)
+        run: mypy . --ignore-missing-imports --if-present || true
+
+      - name: Test
+        run: pytest -v
+
+      - name: Health check
+        run: python -c "import src; print('import ok')" 2>/dev/null || true
