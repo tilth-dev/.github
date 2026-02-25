@@ -1,0 +1,37 @@
+name: Feature Request
+description: New capability or improvement
+labels: ["enhancement"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: What should be built?
+      placeholder: Short description
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem it solves
+      placeholder: What pain does this address?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - [ ] It does X
+        - [ ] It handles Y
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - High (blocking revenue or customers)
+        - Medium (important but not urgent)
+        - Low (nice to have)
+    validations:
+      required: true
